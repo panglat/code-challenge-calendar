@@ -3,11 +3,7 @@
 .calendar-table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid red;
-
-  &__row {
-    border: 1px solid green;
-  }
+  border: 1px solid #777777;
 
   &__header-cell {
     width: calc(100% / 7);
@@ -15,5 +11,15 @@
     background-color: #2f74b5;
     padding: 5px;
     border: 0;
+  }
+
+  &__body-table-data {
+    border: 1px solid #777777;
+    background-color: white;
+
+    &:first-child,
+    &:last-child {
+      background-color: #f2f2f2;
+    }
   }
 }
