@@ -1,4 +1,16 @@
 @import 'src/global-styles/globals.scss';
 
 .calendar-day {
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+
+  &__day {
+    font-weight: bold;
+    margin: 5px;
+
+    &--other-month {
+      color: #a2a2a2;
+    }
+  }
 }
