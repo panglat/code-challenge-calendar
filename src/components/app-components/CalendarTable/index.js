@@ -8,11 +8,13 @@ import CalendarDay from '../CalendarDay';
 
 // @ own
 import './styles.scss';
+import { reminderPropType } from '../../../util/propTypesConstants';
 
 const CalendarTable = ({
   className,
   monthNumber,
   onDayClick,
+  reminders,
   year,
   ...rest
 }) => {
@@ -60,7 +62,7 @@ const CalendarTable = ({
       calendar.push(week);
     }
 
-    return calendar;
+    return { firstCalendarDay, lastCalendarDay, calendar };
   };
 
   const renderHeaderRow = () =>
@@ -70,7 +72,22 @@ const CalendarTable = ({
       </th>
     ));
 
-  const calendarArray = buildCalendarDaysArray();
+  const {
+    firstCalendarDay,
+    lastCalendarDay,
+    calendar,
+  } = buildCalendarDaysArray();
+
+  const lastCalendarDay24h = moment(lastCalendarDay).add(
+    moment.duration('23:59:59'),
+  );
+  const remindersFilteredAndSorted = reminders
+    .filter(
+      (r) =>
+        r.secondsSinceEpoch >= firstCalendarDay.unix() &&
+        r.secondsSinceEpoch <= lastCalendarDay24h.unix(),
+    )
+    .sort((a, b) => a.secondsSinceEpoch - b.secondsSinceEpoch);
 
   return (
     <table className={cn('calendar-table', className)} {...rest}>
@@ -78,7 +95,7 @@ const CalendarTable = ({
         <tr className="calendar-table__header-row">{renderHeaderRow()}</tr>
       </thead>
       <tbody className="calendar-table__body">
-        {calendarArray.map((week) => (
+        {calendar.map((week) => (
           <tr key={week[0].format()} className="calendar-table__body-row">
             {week.map((day) => (
               <td
@@ -86,9 +103,10 @@ const CalendarTable = ({
                 className="calendar-table__body-table-data"
               >
                 <CalendarDay
-                  date={day}
+                  day={day}
                   monthNumber={monthNumber}
                   onClick={() => onDayClick(day)}
+                  reminders={remindersFilteredAndSorted}
                 />
               </td>
             ))}
@@ -104,6 +122,7 @@ CalendarTable.propTypes = {
   monthNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     .isRequired,
   onDayClick: PropTypes.func,
+  reminders: PropTypes.arrayOf(reminderPropType).isRequired,
   year: PropTypes.number.isRequired,
 };
 

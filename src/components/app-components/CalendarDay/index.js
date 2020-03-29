@@ -5,16 +5,31 @@ import cn from 'classnames';
 
 // @ own
 import './styles.scss';
+import moment from 'moment';
+import {
+  reminderPropType,
+  momentObjPropType,
+} from '../../../util/propTypesConstants';
 
-const CalendarDay = ({ className, date, monthNumber, ...rest }) => {
+const CalendarDay = ({ className, day, monthNumber, reminders, ...rest }) => {
+  const today00hEpoch = day.unix();
+  const today24hEpoch = moment(day).add(moment.duration('23:59:59')).unix();
+  const dayReminders = reminders.filter(
+    (r) =>
+      r.secondsSinceEpoch >= today00hEpoch &&
+      r.secondsSinceEpoch <= today24hEpoch,
+  );
   return (
     <div className={cn('calendar-day', className)} {...rest}>
       <div
         className={cn('calendar-day__day', {
-          'calendar-day__day--other-month': date.month() + 1 !== monthNumber,
+          'calendar-day__day--other-month': day.month() + 1 !== monthNumber,
         })}
       >
-        {date.date()}
+        {day.date()}
+        {dayReminders.map((r) => (
+          <div>{r.dateTime}</div>
+        ))}
       </div>
     </div>
   );
@@ -22,10 +37,10 @@ const CalendarDay = ({ className, date, monthNumber, ...rest }) => {
 
 CalendarDay.propTypes = {
   className: PropTypes.string,
-  date: PropTypes.shape({ date: PropTypes.func, month: PropTypes.func })
-    .isRequired,
+  day: PropTypes.shape(momentObjPropType).isRequired,
   monthNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     .isRequired,
+  reminders: PropTypes.arrayOf(reminderPropType).isRequired,
 };
 
 CalendarDay.defaultProps = {

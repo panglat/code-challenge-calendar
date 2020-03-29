@@ -9,6 +9,7 @@ import { Formik } from 'formik';
 import SimpleModal from '../../base-components/SimpleModal';
 import Button from '../../base-components/Button';
 import ColorPicker from '../../base-components/ColorPicker';
+import { momentObjPropType } from '../../../util/propTypesConstants';
 
 // @ own
 import './styles.scss';
@@ -18,9 +19,10 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
     <SimpleModal>
       <Formik
         initialValues={{
-          eventName: '',
-          eventTime: moment().format('HH:MM'),
-          eventColor: {
+          reminderName: '',
+          reminderTime: moment().format('HH:MM'),
+          reminderCity: 'Mendoza',
+          reminderColor: {
             r: '18',
             g: '115',
             b: '222',
@@ -29,19 +31,31 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
         }}
         validate={(values) => {
           const errors = {};
-          if (!values.eventName) {
-            errors.eventName = 'Required';
+          if (!values.reminderName) {
+            errors.reminderName = 'Required';
           }
-          if (!values.eventTime) {
-            errors.eventTime = 'Required';
+          if (!values.reminderTime) {
+            errors.reminderTime = 'Required';
           }
-          if (!values.eventColor) {
-            errors.eventColor = 'Required';
+          if (!values.reminderCity) {
+            errors.reminderCity = 'Required';
+          }
+          if (!values.reminderColor) {
+            errors.reminderColor = 'Required';
           }
           return errors;
         }}
         onSubmit={(values) => {
-          onSubmit(values);
+          const dateTime = moment(day).add(
+            moment.duration(values.reminderTime),
+          );
+          onSubmit({
+            city: values.city,
+            color: values.reminderColor,
+            dateTime: dateTime.format(),
+            name: values.reminderName,
+            secondsSinceEpoch: dateTime.unix(),
+          });
         }}
         validateOnMount
       >
@@ -59,46 +73,59 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
           >
             <h1>Reminder</h1>
             <div className="reminder-modal__group">
-              <label className="reminder-modal__label" htmlFor="eventName">
+              <label className="reminder-modal__label" htmlFor="reminderName">
                 Name:
                 <input
                   className="reminder-modal__input-text"
                   type="text"
-                  id="eventName"
+                  id="reminderName"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.eventName}
+                  value={values.reminderName}
                 />
               </label>
             </div>
             <div className="reminder-modal__group">
-              <label className="reminder-modal__label" htmlFor="event-date">
+              <label className="reminder-modal__label" htmlFor="reminder-date">
                 Date:
                 {day.format('MM-DD-YYYY')}
               </label>
             </div>
             <div className="reminder-modal__group">
-              <label className="reminder-modal__label" htmlFor="event-time">
+              <label className="reminder-modal__label" htmlFor="reminder-time">
                 Time:
                 <TimePicker
-                  name="eventTime"
-                  id="event-time"
+                  name="reminderTime"
+                  id="reminder-time"
                   disableClock
                   onChange={(value) => {
-                    setFieldValue('eventTime', value);
+                    setFieldValue('reminderTime', value);
                   }}
-                  value={values.eventTime}
+                  value={values.reminderTime}
                 />
               </label>
             </div>
             <div className="reminder-modal__group">
-              <label className="reminder-modal__label" htmlFor="event-color">
+              <label className="reminder-modal__label" htmlFor="reminderCity">
+                City:
+                <input
+                  className="reminder-modal__input-text"
+                  type="text"
+                  id="reminderCity"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.reminderCity}
+                />
+              </label>
+            </div>
+            <div className="reminder-modal__group">
+              <label className="reminder-modal__label" htmlFor="reminder-color">
                 Color:
                 <ColorPicker
                   onChangeComplete={(value) => {
-                    setFieldValue('eventColor', value.rgb);
+                    setFieldValue('reminderColor', value.rgb);
                   }}
-                  color={values.eventColor}
+                  color={values.reminderColor}
                 />
               </label>
             </div>
@@ -117,7 +144,7 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
 
 ReminderModal.propTypes = {
   className: PropTypes.string,
-  day: PropTypes.shape({ format: PropTypes.func }).isRequired,
+  day: momentObjPropType.isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
 };
