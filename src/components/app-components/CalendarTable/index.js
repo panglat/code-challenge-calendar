@@ -9,7 +9,13 @@ import CalendarDay from '../CalendarDay';
 // @ own
 import './styles.scss';
 
-const CalendarTable = ({ className, monthNumber, year, ...rest }) => {
+const CalendarTable = ({
+  className,
+  monthNumber,
+  onDayClick,
+  year,
+  ...rest
+}) => {
   const days = [
     'Sunday',
     'Monday',
@@ -79,7 +85,11 @@ const CalendarTable = ({ className, monthNumber, year, ...rest }) => {
                 key={day.format()}
                 className="calendar-table__body-table-data"
               >
-                <CalendarDay date={day} monthNumber={monthNumber} />
+                <CalendarDay
+                  date={day}
+                  monthNumber={monthNumber}
+                  onClick={() => onDayClick(day)}
+                />
               </td>
             ))}
           </tr>
@@ -93,11 +103,13 @@ CalendarTable.propTypes = {
   className: PropTypes.string,
   monthNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     .isRequired,
+  onDayClick: PropTypes.func,
   year: PropTypes.number.isRequired,
 };
 
 CalendarTable.defaultProps = {
   className: '',
+  onDayClick: () => {},
 };
 
 export default CalendarTable;

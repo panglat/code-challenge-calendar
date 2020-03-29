@@ -13,7 +13,7 @@ import ColorPicker from '../../base-components/ColorPicker';
 // @ own
 import './styles.scss';
 
-const EventModal = ({ className }) => {
+const EventModal = ({ className, day, onClose, onSubmit }) => {
   return (
     <SimpleModal>
       <Formik
@@ -41,7 +41,7 @@ const EventModal = ({ className }) => {
           return errors;
         }}
         onSubmit={(values) => {
-          console.log(values);
+          onSubmit(values);
         }}
         validateOnMount
       >
@@ -72,6 +72,12 @@ const EventModal = ({ className }) => {
               </label>
             </div>
             <div className="event-modal__group">
+              <label className="event-modal__label" htmlFor="event-date">
+                Date:
+                {day.format('MM-DD-YYYY')}
+              </label>
+            </div>
+            <div className="event-modal__group">
               <label className="event-modal__label" htmlFor="event-time">
                 Time:
                 <TimePicker
@@ -96,7 +102,7 @@ const EventModal = ({ className }) => {
                 />
               </label>
             </div>
-            <Button buttonStyle="secondary" type="button">
+            <Button buttonStyle="secondary" type="button" onClick={onClose}>
               Cancelar
             </Button>
             <Button type="submit" disabled={!isValid}>
@@ -111,10 +117,15 @@ const EventModal = ({ className }) => {
 
 EventModal.propTypes = {
   className: PropTypes.string,
+  day: PropTypes.shape({ format: PropTypes.func }).isRequired,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 EventModal.defaultProps = {
   className: '',
+  onClose: () => {},
+  onSubmit: () => {},
 };
 
 export default EventModal;

@@ -17,10 +17,18 @@
     border: 1px solid $color-grey-03;
     background-color: $color-white;
 
+    &:hover {
+      background-color: darken($color-white, 5%);
+    }
+
     &:first-child,
     &:last-child {
       background-color: $color-grey-09;
       color: $color-primary;
+
+      &:hover {
+        background-color: darken($color-grey-09, 5%);
+      }
     }
   }
 }
