@@ -14,8 +14,11 @@
     "react": "^16.13.1",
     "react-color": "^2.18.0",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
-    "react-time-picker": "^3.9.0"
+    "react-time-picker": "^3.9.0",
+    "redux": "^4.0.5",
+    "uuid": "^7.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,7 +53,9 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.9",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "redux-devtools": "^3.5.0",
+    "redux-devtools-extension": "^2.13.8"
   },
   "husky": {
     "hooks": {

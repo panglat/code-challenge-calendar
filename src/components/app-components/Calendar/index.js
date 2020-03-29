@@ -1,39 +1,43 @@
 // @ packages
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import CalendarTable from '../CalendarTable';
-import EventModal from '../ReminderModal';
+import ReminderModal from '../ReminderModal';
+import { createReminder } from '../../../business/ReminderManager/actions';
 
 // @ own
 import './styles.scss';
 
 const Calendar = ({ className, ...rest }) => {
-  const [showEventModal, setShowEventModal] = useState(false);
+  const [showReminderModal, setShowReminderModal] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
 
-  const onEventModalClose = () => {
-    setShowEventModal(false);
+  const dispatch = useDispatch();
+
+  const onReminderModalClose = () => {
+    setShowReminderModal(false);
   };
 
-  const onEventModalSubmit = (values) => {
-    console.log(values);
-    onEventModalClose();
+  const onReminderModalSubmit = (values) => {
+    dispatch(createReminder({ ...values, day: selectedDay }));
+    onReminderModalClose();
   };
 
   const onDayClick = (day) => {
     setSelectedDay(day);
-    setShowEventModal(true);
+    setShowReminderModal(true);
   };
 
   return (
     <div className={cn('calendar', className)} {...rest}>
       <CalendarTable monthNumber={4} year={2020} onDayClick={onDayClick} />
-      {showEventModal && (
-        <EventModal
+      {showReminderModal && (
+        <ReminderModal
           day={selectedDay}
-          onClose={onEventModalClose}
-          onSubmit={onEventModalSubmit}
+          onClose={onReminderModalClose}
+          onSubmit={onReminderModalSubmit}
         />
       )}
     </div>
