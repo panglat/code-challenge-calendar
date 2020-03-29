@@ -13,7 +13,7 @@ import ColorPicker from '../../base-components/ColorPicker';
 // @ own
 import './styles.scss';
 
-const EventModal = ({ className, day, onClose, onSubmit }) => {
+const ReminderModal = ({ className, day, onClose, onSubmit }) => {
   return (
     <SimpleModal>
       <Formik
@@ -54,15 +54,15 @@ const EventModal = ({ className, day, onClose, onSubmit }) => {
           setFieldValue,
         }) => (
           <form
-            className={cn('event-modal', className)}
+            className={cn('reminder-modal', className)}
             onSubmit={handleSubmit}
           >
-            <h1>Event</h1>
-            <div className="event-modal__group">
-              <label className="event-modal__label" htmlFor="eventName">
+            <h1>Reminder</h1>
+            <div className="reminder-modal__group">
+              <label className="reminder-modal__label" htmlFor="eventName">
                 Name:
                 <input
-                  className="event-modal__input-text"
+                  className="reminder-modal__input-text"
                   type="text"
                   id="eventName"
                   onChange={handleChange}
@@ -71,14 +71,14 @@ const EventModal = ({ className, day, onClose, onSubmit }) => {
                 />
               </label>
             </div>
-            <div className="event-modal__group">
-              <label className="event-modal__label" htmlFor="event-date">
+            <div className="reminder-modal__group">
+              <label className="reminder-modal__label" htmlFor="event-date">
                 Date:
                 {day.format('MM-DD-YYYY')}
               </label>
             </div>
-            <div className="event-modal__group">
-              <label className="event-modal__label" htmlFor="event-time">
+            <div className="reminder-modal__group">
+              <label className="reminder-modal__label" htmlFor="event-time">
                 Time:
                 <TimePicker
                   name="eventTime"
@@ -91,8 +91,8 @@ const EventModal = ({ className, day, onClose, onSubmit }) => {
                 />
               </label>
             </div>
-            <div className="event-modal__group">
-              <label className="event-modal__label" htmlFor="event-color">
+            <div className="reminder-modal__group">
+              <label className="reminder-modal__label" htmlFor="event-color">
                 Color:
                 <ColorPicker
                   onChangeComplete={(value) => {
@@ -115,17 +115,17 @@ const EventModal = ({ className, day, onClose, onSubmit }) => {
   );
 };
 
-EventModal.propTypes = {
+ReminderModal.propTypes = {
   className: PropTypes.string,
   day: PropTypes.shape({ format: PropTypes.func }).isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
 };
 
-EventModal.defaultProps = {
+ReminderModal.defaultProps = {
   className: '',
   onClose: () => {},
   onSubmit: () => {},
 };
 
-export default EventModal;
+export default ReminderModal;

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import CalendarTable from '../CalendarTable';
-import EventModal from '../EventModal';
+import EventModal from '../ReminderModal';
 
 // @ own
 import './styles.scss';
