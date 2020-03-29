@@ -1,6 +1,9 @@
+// @ packages
 import React from 'react';
-import './App.scss';
-import CalendarTable from './components/CalendarTable';
+import CalendarTable from '../app-components/CalendarTable';
+
+// @ own
+import './styles.scss';
 
 function App() {
   return (
