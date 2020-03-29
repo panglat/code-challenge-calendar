@@ -3,24 +3,24 @@
 .calendar-table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #777777;
+  border: 1px solid $color-grey-03;
 
   &__header-cell {
     width: calc(100% / 7);
-    color: white;
-    background-color: #2f74b5;
+    color: $color-white;
+    background-color: $color-primary;
     padding: 5px;
     border: 0;
   }
 
   &__body-table-data {
-    border: 1px solid #777777;
-    background-color: white;
+    border: 1px solid $color-grey-03;
+    background-color: $color-white;
 
     &:first-child,
     &:last-child {
-      background-color: #f2f2f2;
-      color: #2f74b5;
+      background-color: $color-grey-09;
+      color: $color-primary;
     }
   }
 }
