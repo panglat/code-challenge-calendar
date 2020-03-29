@@ -1,6 +1,6 @@
 // @ packages
 import React from 'react';
-import CalendarTable from '../app-components/CalendarTable';
+import Calendar from '../app-components/Calendar';
 
 // @ own
 import './styles.scss';
@@ -8,7 +8,7 @@ import './styles.scss';
 function App() {
   return (
     <div className="App">
-      <CalendarTable monthNumber={4} year={2020} />
+      <Calendar />
     </div>
   );
 }

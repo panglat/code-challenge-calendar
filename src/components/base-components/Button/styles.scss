@@ -1,0 +1,29 @@
+@import 'src/global-styles/globals.scss';
+
+.button {
+  margin: 0 5px;
+  padding: 5px;
+  text-align: center;
+  color: $color-white;
+  min-width: 100px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--primary {
+    background-color: $color-primary;
+  }
+
+  &--primary:hover {
+    background-color: darken($color-primary, 15);
+  }
+
+  &--secondary {
+    background-color: $color-secondary;
+  }
+
+  &--secondary:hover {
+    background-color: darken($color-secondary, 15);
+  }
+}
