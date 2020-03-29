@@ -7,9 +7,23 @@ import cn from 'classnames';
 // @ own
 import './styles.scss';
 
-const Button = ({ className, children, style, type, ...rest }) => (
+const Button = ({
+  buttonStyle,
+  className,
+  children,
+  disabled,
+  type,
+  ...rest
+}) => (
   <button
-    className={cn('button', { [`button--${style}`]: style }, className)}
+    className={cn(
+      'button',
+      {
+        [`button--${buttonStyle}`]: buttonStyle,
+      },
+      className,
+    )}
+    disabled={disabled}
     type={type}
     {...rest}
   >
@@ -20,14 +34,16 @@ const Button = ({ className, children, style, type, ...rest }) => (
 Button.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  style: PropTypes.oneOf(['primary', 'secondary']),
+  disabled: PropTypes.bool,
+  buttonStyle: PropTypes.oneOf(['primary', 'secondary']),
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
 };
 
 Button.defaultProps = {
   className: '',
   children: null,
-  style: 'primary',
+  disabled: false,
+  buttonStyle: 'primary',
   type: 'button',
 };
 

@@ -1,5 +1,72 @@
 @import 'src/global-styles/globals.scss';
 
+// From Bootstrap@4.3.1 mixin
+// https://github.com/twbs/bootstrap/blob/master/scss/mixins/_buttons.scss
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 25%);
+  }
+  &:hover {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 12%);
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+      border-color: darken($border, 25%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+      background-color: $background;
+      border-color: $border;
+    }
+  }
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+
+// Mixin to create a bootstrap button with custom colors
+@mixin bootstrap-button($background) {
+  $color: #fff;
+  $border: 5%;
+  @if (lightness($background) >= lightness(#aaa)) {
+    $color: #333;
+    $border: 0.2 * lightness($background);
+  }
+  @include button-variant($color, $background, darken($background, $border));
+}
+
 .button {
   margin: 0 5px;
   padding: 5px;
@@ -7,23 +74,11 @@
   color: $color-white;
   min-width: 100px;
 
-  &:hover {
-    cursor: pointer;
-  }
-
   &--primary {
-    background-color: $color-primary;
-  }
-
-  &--primary:hover {
-    background-color: darken($color-primary, 15);
+    @include bootstrap-button($color-primary);
   }
 
   &--secondary {
-    background-color: $color-secondary;
-  }
-
-  &--secondary:hover {
-    background-color: darken($color-secondary, 15);
+    @include bootstrap-button($color-secondary);
   }
 }

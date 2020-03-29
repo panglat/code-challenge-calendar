@@ -11,7 +11,7 @@ const CalendarDay = ({ className, date, monthNumber, ...rest }) => {
     <div className={cn('calendar-day', className)} {...rest}>
       <div
         className={cn('calendar-day__day', {
-          'calendar-day__day--other-month': date.months() + 1 !== monthNumber,
+          'calendar-day__day--other-month': date.month() + 1 !== monthNumber,
         })}
       >
         {date.date()}
@@ -22,7 +22,7 @@ const CalendarDay = ({ className, date, monthNumber, ...rest }) => {
 
 CalendarDay.propTypes = {
   className: PropTypes.string,
-  date: PropTypes.shape({ date: PropTypes.func, months: PropTypes.func })
+  date: PropTypes.shape({ date: PropTypes.func, month: PropTypes.func })
     .isRequired,
   monthNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     .isRequired,
