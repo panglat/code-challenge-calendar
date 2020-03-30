@@ -86,10 +86,11 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
             className={cn('reminder-modal', className)}
             onSubmit={handleSubmit}
           >
-            <h1>Reminder</h1>
+            <h1 className="reminder-modal__header">Reminder</h1>
             <div className="reminder-modal__group">
               <label className="reminder-modal__label" htmlFor="reminderName">
                 Name:
+                <br />
                 <input
                   className="reminder-modal__input-text"
                   type="text"
@@ -104,26 +105,31 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
             <div className="reminder-modal__group">
               <label className="reminder-modal__label" htmlFor="reminder-date">
                 Date:
-                {moment(reminder.dateTime).format('MM-DD-YYYY')}
+                <br />
+                <span>{moment(reminder.dateTime).format('MM-DD-YYYY')}</span>
               </label>
             </div>
             <div className="reminder-modal__group">
               <label className="reminder-modal__label" htmlFor="reminder-time">
                 Time:
-                <TimePicker
-                  name="reminderTime"
-                  id="reminder-time"
-                  disableClock
-                  onChange={(value) => {
-                    setFieldValue('reminderTime', value);
-                  }}
-                  value={values.reminderTime}
-                />
+                <br />
+                <span>
+                  <TimePicker
+                    name="reminderTime"
+                    id="reminder-time"
+                    disableClock
+                    onChange={(value) => {
+                      setFieldValue('reminderTime', value);
+                    }}
+                    value={values.reminderTime}
+                  />
+                </span>
               </label>
             </div>
             <div className="reminder-modal__group">
               <label className="reminder-modal__label" htmlFor="reminderCity">
                 City:
+                <br />
                 <input
                   className="reminder-modal__input-text"
                   type="text"
@@ -132,16 +138,16 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
                   onBlur={handleBlur}
                   value={values.reminderCity}
                 />
+                <Button
+                  type="button"
+                  onClick={() => {
+                    getWeather(values.reminderCity);
+                  }}
+                >
+                  Weather
+                </Button>
               </label>
             </div>
-            <Button
-              type="button"
-              onClick={() => {
-                getWeather(values.reminderCity);
-              }}
-            >
-              Weather
-            </Button>
             {(weather || weatherError) && (
               <CityWeatherView
                 city={values.reminderCity}
@@ -171,17 +177,19 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
                 />
               </label>
             </div>
-            <Button buttonStyle="secondary" type="button" onClick={onClose}>
-              Cancel
-            </Button>
-            <Button type="submit" disabled={!isValid}>
-              Save
-            </Button>
-            {reminder.id && (
-              <Button type="button" onClick={() => onDelete(reminder.id)}>
-                Delete
+            <div className="reminder-modal__button-group">
+              <Button buttonStyle="secondary" type="button" onClick={onClose}>
+                Cancel
               </Button>
-            )}
+              <Button type="submit" disabled={!isValid}>
+                Save
+              </Button>
+              {reminder.id && (
+                <Button type="button" onClick={() => onDelete(reminder.id)}>
+                  Delete
+                </Button>
+              )}
+            </div>
           </form>
         )}
       </Formik>

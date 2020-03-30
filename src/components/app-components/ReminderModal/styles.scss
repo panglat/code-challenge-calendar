@@ -1,4 +1,31 @@
 @import 'src/global-styles/globals.scss';
 
 .reminder-modal {
+  padding: 10px;
+
+  &__header {
+    margin: 10px 0;
+    color: $color-primary;
+  }
+
+  &__group {
+    margin: 10px 0;
+  }
+
+  &__label {
+    font-weight: bold;
+    span {
+      font-weight: normal;
+    }
+  }
+
+  &__button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    button {
+      margin-bottom: 10px;
+    }
+  }
 }

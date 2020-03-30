@@ -1,8 +1,30 @@
 @import 'src/global-styles/globals.scss';
 
 .city-weather-view {
+  border: 1px solid $color-primary;
+  border-radius: 10px;
+  padding: 10px;
+
+  &__row {
+    display: flex;
+  }
+
+  &__icon-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+  }
+
+  &__header {
+    margin: 5px 0;
+  }
+
   &__paragraph {
     margin: 0;
+    span {
+      margin-left: 5px;
+    }
   }
 
   &__image {
