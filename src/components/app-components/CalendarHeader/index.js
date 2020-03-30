@@ -9,6 +9,7 @@ import './styles.scss';
 const CalendarHeader = ({
   className,
   monthYear,
+  onDeleteAllReminders,
   onMonthYearChanged,
   ...rest
 }) => {
@@ -34,9 +35,18 @@ const CalendarHeader = ({
       >
         <polygon fill="red" points="15,3 27,27 3,27 15,3" />
       </svg>
-      <h1 className="calendar-header__head">
-        {monthYear.format('MMMM, YYYY')}
-      </h1>
+      <div className="calendar-header__head">
+        <h1>{monthYear.format('MMMM, YYYY')}</h1>
+        <span
+          role="button"
+          tabIndex={0}
+          onClick={onDeleteAllReminders}
+          onKeyPress={onDeleteAllReminders}
+        >
+          Delete All Reminders
+        </span>
+      </div>
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30px"
@@ -55,12 +65,14 @@ const CalendarHeader = ({
 
 CalendarHeader.propTypes = {
   monthYear: momentObjPropType.isRequired,
+  onDeleteAllReminders: PropTypes.func,
   onMonthYearChanged: PropTypes.func,
   className: PropTypes.string,
 };
 
 CalendarHeader.defaultProps = {
   className: '',
+  onDeleteAllReminders: () => {},
   onMonthYearChanged: () => {},
 };
 

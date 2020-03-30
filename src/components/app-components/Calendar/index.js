@@ -10,6 +10,7 @@ import {
   createReminder,
   updateReminder,
   deleteReminder,
+  deleteAllReminders,
 } from '../../../business/ReminderManager/actions';
 import { getReminders } from '../../../business/ReminderManager/selectors';
 import CalendarHeader from '../CalendarHeader';
@@ -86,10 +87,15 @@ const Calendar = ({ className, ...rest }) => {
     setShowReminderModal(true);
   };
 
+  const onDeleteAllReminders = () => {
+    dispatch(deleteAllReminders());
+  };
+
   return (
     <div className={cn('calendar', className)} {...rest}>
       <CalendarHeader
         monthYear={currentMonthYear}
+        onDeleteAllReminders={onDeleteAllReminders}
         onMonthYearChanged={(monthYear) => setCurrentMonthYear(monthYear)}
       />
       <CalendarTable
