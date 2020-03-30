@@ -14,7 +14,7 @@ import { reminderPropType } from '../../../util/propTypesConstants';
 // @ own
 import './styles.scss';
 
-const ReminderModal = ({ className, reminder, onClose, onSubmit }) => {
+const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
   return (
     <SimpleModal>
       <Formik
@@ -49,7 +49,7 @@ const ReminderModal = ({ className, reminder, onClose, onSubmit }) => {
             millisecond: 0,
           });
 
-          onSubmit({
+          onSave({
             ...reminder,
             city: values.reminderCity,
             color: values.reminderColor,
@@ -132,11 +132,16 @@ const ReminderModal = ({ className, reminder, onClose, onSubmit }) => {
               </label>
             </div>
             <Button buttonStyle="secondary" type="button" onClick={onClose}>
-              Cancelar
+              Cancel
             </Button>
             <Button type="submit" disabled={!isValid}>
-              Salvar
+              Save
             </Button>
+            {reminder.id && (
+              <Button type="button" onClick={() => onDelete(reminder.id)}>
+                Delete
+              </Button>
+            )}
           </form>
         )}
       </Formik>
@@ -147,14 +152,16 @@ const ReminderModal = ({ className, reminder, onClose, onSubmit }) => {
 ReminderModal.propTypes = {
   className: PropTypes.string,
   onClose: PropTypes.func,
-  onSubmit: PropTypes.func,
+  onDelete: PropTypes.func,
+  onSave: PropTypes.func,
   reminder: reminderPropType.isRequired,
 };
 
 ReminderModal.defaultProps = {
   className: '',
   onClose: () => {},
-  onSubmit: () => {},
+  onDelete: () => {},
+  onSave: () => {},
 };
 
 export default ReminderModal;

@@ -9,6 +9,7 @@ import ReminderModal from '../ReminderModal';
 import {
   createReminder,
   updateReminder,
+  deleteReminder,
 } from '../../../business/ReminderManager/actions';
 import { getReminders } from '../../../business/ReminderManager/selectors';
 
@@ -52,7 +53,12 @@ const Calendar = ({ className, ...rest }) => {
     setShowReminderModal(false);
   };
 
-  const onReminderModalSubmit = (reminder) => {
+  const onReminderModalDelete = (id) => {
+    dispatch(deleteReminder(id));
+    onReminderModalClose();
+  };
+
+  const onReminderModalSave = (reminder) => {
     dispatch(
       reminder.id
         ? updateReminder(reminder.id, reminder)
@@ -83,7 +89,8 @@ const Calendar = ({ className, ...rest }) => {
       {showReminderModal && (
         <ReminderModal
           onClose={onReminderModalClose}
-          onSubmit={onReminderModalSubmit}
+          onDelete={onReminderModalDelete}
+          onSave={onReminderModalSave}
           reminder={selectedReminder}
         />
       )}
