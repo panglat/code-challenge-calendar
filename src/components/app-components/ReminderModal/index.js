@@ -145,7 +145,18 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
             {(weather || weatherError) && (
               <CityWeatherView
                 city={values.reminderCity}
-                weather={weather}
+                weather={
+                  weather
+                    ? {
+                        city: weather.name,
+                        countryCode: weather.sys.country,
+                        iconUrl: `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`,
+                        temperatureK: weather.main.temp,
+                        weatherMain: weather.weather[0].main,
+                        weatherDescription: weather.weather[0].description,
+                      }
+                    : null
+                }
                 weatherError={weatherError}
               />
             )}

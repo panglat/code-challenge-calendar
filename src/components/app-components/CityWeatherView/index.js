@@ -11,19 +11,19 @@ const CityWeatherView = ({ className, city, weather, weatherError }) => {
         <>
           <p className="city-weather-view__paragraph">
             City:
-            <span>{`${weather.name}, ${weather.sys.country}`}</span>
+            <span>{`${weather.city}, ${weather.countryCode}`}</span>
           </p>
           <p className="city-weather-view__paragraph">
             Temperature:
-            <span>{`${weather.main.temp - 273.15} C`}</span>
+            <span>{`${Math.round(weather.temperatureK - 273.15)} C`}</span>
           </p>
           <p className="city-weather-view__paragraph">
             Weather:
-            <span>{`${weather.weather[0].main} (${weather.weather[0].description})`}</span>
+            <span>{`${weather.weatherMain} (${weather.weatherDescription})`}</span>
           </p>
           <img
-            src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
-            alt={weather.weather[0].main}
+            src={weather.iconUrl}
+            alt={weather.weatherMain}
             className="city-weather-view__image"
           />
         </>
@@ -41,8 +41,15 @@ const CityWeatherView = ({ className, city, weather, weatherError }) => {
 CityWeatherView.propTypes = {
   city: PropTypes.string.isRequired,
   className: PropTypes.string,
-  weather: PropTypes.node,
-  weatherError: PropTypes.node,
+  weather: PropTypes.shape({
+    city: PropTypes.string,
+    countryCode: PropTypes.string,
+    iconUrl: PropTypes.string,
+    temperatureK: PropTypes.number,
+    weatherMain: PropTypes.string,
+    weatherDescription: PropTypes.string,
+  }),
+  weatherError: PropTypes.string,
 };
 
 CityWeatherView.defaultProps = {
