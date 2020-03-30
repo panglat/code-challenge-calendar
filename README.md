@@ -1,71 +1,60 @@
 # code-challenge-calendar
-The goal of this exercise is to create a demo calendar application using React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The goal of this exercise is to create a demo reminder application using React
 
-## Available Scripts
+## How to install the app
 
-In the project directory, you can run:
+Once the repository is cloned, it is needed to install the dependant packages using the terminal:
 
-### `npm start`
+`npm install`
 
-Runs the app in the development mode.<br />
+## How to run the app
+
+Run the app from the terminal:
+
+`npm start`
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Run tests
 
-### `npm test`
+The following command launches the test runner in the interactive watch mode.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm test`
 
-### `npm run build`
+## Calendar page
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Calendar](https://panglat.github.io/code-challenge-calendar/images/01.png 'Calendar')
+This page show a calendar with the current month. The user can go to the previous month clicking the top left arrow or to the next month clicking the top right arrow
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Create a new reminder
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The user clicks the day they want to create a reminder, and a modal is displayed.
+![ReminderModal](https://panglat.github.io/code-challenge-calendar/images/02.png 'Reminder modal')
 
-### `npm run eject`
+Once the user fills the modal, they save the reminder by clicking the Save button.
+![ReminderModal](https://panglat.github.io/code-challenge-calendar/images/03.png 'Reminder modal')
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The user check the current weather in the city the user typed by clicking Weather button.
+The user can change the color using the color picker.
+![ReminderModal](https://panglat.github.io/code-challenge-calendar/images/04.png 'Reminder modal')
+![Calendar](https://panglat.github.io/code-challenge-calendar/images/05.png 'Calendar')
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The user create the reminder by clicking the Save button or they can skip the reminder creation by clicking the Cancel button.
+![Calendar](https://panglat.github.io/code-challenge-calendar/images/06.png 'Calendar')
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Update an existing reminder
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The user can update an existing reminder by clicking it in the calendar
+![ReminderModal](https://panglat.github.io/code-challenge-calendar/images/07.png 'Reminder modal')
+The user updated an existing reminder by clicking the Save button or they it can be skipped by clicking the Cancel button.
 
-## Learn More
+## Delete an existing reminder
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The user can delete an existing reminder by clicking it in the calendar and pressing the Delete button in the modal
+![ReminderModal](https://panglat.github.io/code-challenge-calendar/images/07.png 'Reminder modal')
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Delete all existing reminders
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The user can delete all existing reminders by clicking it Delete All Reminders link at the top of the page, below the Header
+![Calendar](https://panglat.github.io/code-challenge-calendar/images/10.png 'Calendar')
