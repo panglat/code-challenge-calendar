@@ -46,7 +46,7 @@ const Calendar = ({ className, ...rest }) => {
 
     return {
       ...{},
-      city: 'Mendoza',
+      city: '',
       color: {
         r: 18,
         g: 115,
