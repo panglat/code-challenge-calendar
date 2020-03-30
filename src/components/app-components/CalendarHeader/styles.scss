@@ -1,0 +1,27 @@
+@import 'src/global-styles/globals.scss';
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+
+  &__head {
+    color: $color-primary;
+    margin: 0;
+  }
+
+  &__left-arrow,
+  &__right-arrow {
+    polygon {
+      fill: $color-primary;
+    }
+  }
+
+  &__left-arrow {
+    transform: rotateZ(-90deg);
+  }
+
+  &__right-arrow {
+    transform: rotateZ(90deg);
+  }
+}

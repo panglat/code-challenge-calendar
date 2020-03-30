@@ -12,13 +12,22 @@ import {
   deleteReminder,
 } from '../../../business/ReminderManager/actions';
 import { getReminders } from '../../../business/ReminderManager/selectors';
+import CalendarHeader from '../CalendarHeader';
 
 // @ own
 import './styles.scss';
 
 const Calendar = ({ className, ...rest }) => {
+  const getCurrentMonthYear = () => {
+    const now = moment();
+    return moment(`${now.month() + 1}-${now.year()}`, 'MM-YYYY');
+  };
+
   const [showReminderModal, setShowReminderModal] = useState(false);
   const [selectedReminder, setSelectedReminder] = useState(null);
+  const [currentMonthYear, setCurrentMonthYear] = useState(
+    getCurrentMonthYear(),
+  );
   const dispatch = useDispatch();
 
   const reminders = useSelector((state) => getReminders(state));
@@ -79,9 +88,13 @@ const Calendar = ({ className, ...rest }) => {
 
   return (
     <div className={cn('calendar', className)} {...rest}>
+      <CalendarHeader
+        monthYear={currentMonthYear}
+        onMonthYearChanged={(monthYear) => setCurrentMonthYear(monthYear)}
+      />
       <CalendarTable
-        monthNumber={4}
-        year={2020}
+        monthNumber={currentMonthYear.month() + 1}
+        year={currentMonthYear.year()}
         onCreateReminder={onCreateReminder}
         onUpdateReminder={onUpdateReminder}
         reminders={reminders}
