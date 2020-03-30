@@ -12,7 +12,14 @@ import {
 } from '../../../util/propTypesConstants';
 import SummarizedReminder from '../SummarizedReminder';
 
-const CalendarDay = ({ className, day, monthNumber, reminders, ...rest }) => {
+const CalendarDay = ({
+  className,
+  day,
+  monthNumber,
+  onUpdateReminder,
+  reminders,
+  ...rest
+}) => {
   const today00hEpoch = day.unix();
   const today24hEpoch = moment(day).add(moment.duration('23:59:59')).unix();
   const dayReminders = reminders.filter(
@@ -20,6 +27,12 @@ const CalendarDay = ({ className, day, monthNumber, reminders, ...rest }) => {
       r.secondsSinceEpoch >= today00hEpoch &&
       r.secondsSinceEpoch <= today24hEpoch,
   );
+
+  const onSummarizedReminderClick = (event, reminder) => {
+    event.stopPropagation();
+    onUpdateReminder(reminder);
+  };
+
   return (
     <div className={cn('calendar-day', className)} {...rest}>
       <div
@@ -30,7 +43,14 @@ const CalendarDay = ({ className, day, monthNumber, reminders, ...rest }) => {
         {day.date()}
       </div>
       {dayReminders.map((r) => (
-        <SummarizedReminder reminder={r} />
+        <SummarizedReminder
+          key={r.id}
+          reminder={r}
+          role="button"
+          tabIndex={0}
+          onClick={(e) => onSummarizedReminderClick(e, r)}
+          onKeyPress={(e) => onSummarizedReminderClick(e, r)}
+        />
       ))}
     </div>
   );
@@ -41,11 +61,13 @@ CalendarDay.propTypes = {
   day: PropTypes.shape(momentObjPropType).isRequired,
   monthNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     .isRequired,
+  onUpdateReminder: PropTypes.func,
   reminders: PropTypes.arrayOf(reminderPropType).isRequired,
 };
 
 CalendarDay.defaultProps = {
   className: '',
+  onUpdateReminder: () => {},
 };
 
 export default CalendarDay;

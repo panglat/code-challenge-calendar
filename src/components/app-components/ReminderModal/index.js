@@ -9,25 +9,20 @@ import { Formik } from 'formik';
 import SimpleModal from '../../base-components/SimpleModal';
 import Button from '../../base-components/Button';
 import ColorPicker from '../../base-components/ColorPicker';
-import { momentObjPropType } from '../../../util/propTypesConstants';
+import { reminderPropType } from '../../../util/propTypesConstants';
 
 // @ own
 import './styles.scss';
 
-const ReminderModal = ({ className, day, onClose, onSubmit }) => {
+const ReminderModal = ({ className, reminder, onClose, onSubmit }) => {
   return (
     <SimpleModal>
       <Formik
         initialValues={{
-          reminderName: '',
-          reminderTime: moment().format('HH:MM'),
-          reminderCity: 'Mendoza',
-          reminderColor: {
-            r: '18',
-            g: '115',
-            b: '222',
-            a: '1',
-          },
+          reminderName: reminder.name,
+          reminderTime: moment(reminder.dateTime).format('HH:mm'),
+          reminderCity: reminder.city,
+          reminderColor: reminder.color,
         }}
         validate={(values) => {
           const errors = {};
@@ -46,11 +41,17 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
           return errors;
         }}
         onSubmit={(values) => {
-          const dateTime = moment(day).add(
-            moment.duration(values.reminderTime),
-          );
+          const timeSplitted = values.reminderTime.split(':');
+          const dateTime = moment(reminder.dateTime).set({
+            hour: timeSplitted[0],
+            minute: timeSplitted[1],
+            second: 0,
+            millisecond: 0,
+          });
+
           onSubmit({
-            city: values.city,
+            ...reminder,
+            city: values.reminderCity,
             color: values.reminderColor,
             dateTime: dateTime.format(),
             name: values.reminderName,
@@ -89,7 +90,7 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
             <div className="reminder-modal__group">
               <label className="reminder-modal__label" htmlFor="reminder-date">
                 Date:
-                {day.format('MM-DD-YYYY')}
+                {moment(reminder.dateTime).format('MM-DD-YYYY')}
               </label>
             </div>
             <div className="reminder-modal__group">
@@ -145,9 +146,9 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
 
 ReminderModal.propTypes = {
   className: PropTypes.string,
-  day: momentObjPropType.isRequired,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
+  reminder: reminderPropType.isRequired,
 };
 
 ReminderModal.defaultProps = {

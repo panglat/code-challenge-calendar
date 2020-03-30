@@ -17,6 +17,7 @@
     border: 1px solid $color-grey-03;
     background-color: $color-white;
     width: calc(100% / 7);
+    cursor: pointer;
 
     &:hover {
       background-color: darken($color-white, 5%);

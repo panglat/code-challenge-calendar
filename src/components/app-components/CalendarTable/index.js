@@ -13,7 +13,9 @@ import { reminderPropType } from '../../../util/propTypesConstants';
 const CalendarTable = ({
   className,
   monthNumber,
-  onDayClick,
+  onCreateReminder,
+  onUpdateReminder,
+  onDeleteReminder,
   reminders,
   year,
   ...rest
@@ -105,8 +107,12 @@ const CalendarTable = ({
                 <CalendarDay
                   day={day}
                   monthNumber={monthNumber}
-                  onClick={() => onDayClick(day)}
                   reminders={remindersFilteredAndSorted}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => onCreateReminder(day)}
+                  onKeyPress={() => onCreateReminder(day)}
+                  onUpdateReminder={onUpdateReminder}
                 />
               </td>
             ))}
@@ -121,14 +127,18 @@ CalendarTable.propTypes = {
   className: PropTypes.string,
   monthNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     .isRequired,
-  onDayClick: PropTypes.func,
+  onCreateReminder: PropTypes.func,
+  onUpdateReminder: PropTypes.func,
+  onDeleteReminder: PropTypes.func,
   reminders: PropTypes.arrayOf(reminderPropType).isRequired,
   year: PropTypes.number.isRequired,
 };
 
 CalendarTable.defaultProps = {
   className: '',
-  onDayClick: () => {},
+  onCreateReminder: () => {},
+  onUpdateReminder: () => {},
+  onDeleteReminder: () => {},
 };
 
 export default CalendarTable;
