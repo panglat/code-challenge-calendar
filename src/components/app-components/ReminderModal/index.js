@@ -11,7 +11,10 @@ import SimpleModal from '../../base-components/SimpleModal';
 import Button from '../../base-components/Button';
 import ColorPicker from '../../base-components/ColorPicker';
 import { reminderPropType } from '../../../util/propTypesConstants';
-import { requestWeather } from '../../../business/Weather/actions';
+import {
+  requestWeather,
+  clearWeather,
+} from '../../../business/Weather/actions';
 import {
   getWeather as getWeatherSelector,
   getWeatherError as getWeatherErrorSelector,
@@ -27,6 +30,10 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
 
   const getWeather = (city) => {
     dispatch(requestWeather({ city }));
+  };
+
+  const clearWeatherInfo = () => {
+    dispatch(clearWeather());
   };
 
   return (
@@ -71,6 +78,8 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
             name: values.reminderName,
             secondsSinceEpoch: dateTime.unix(),
           });
+
+          clearWeatherInfo();
         }}
         validateOnMount
       >
@@ -134,7 +143,10 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
                   className="reminder-modal__input-text"
                   type="text"
                   id="reminderCity"
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    handleChange(e);
+                    clearWeatherInfo();
+                  }}
                   onBlur={handleBlur}
                   value={values.reminderCity}
                 />
@@ -178,14 +190,27 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
               </label>
             </div>
             <div className="reminder-modal__button-group">
-              <Button buttonStyle="secondary" type="button" onClick={onClose}>
+              <Button
+                buttonStyle="secondary"
+                type="button"
+                onClick={(e) => {
+                  onClose(e);
+                  clearWeatherInfo();
+                }}
+              >
                 Cancel
               </Button>
               <Button type="submit" disabled={!isValid}>
                 Save
               </Button>
               {reminder.id && (
-                <Button type="button" onClick={() => onDelete(reminder.id)}>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    onDelete(reminder.id);
+                    clearWeatherInfo();
+                  }}
+                >
                   Delete
                 </Button>
               )}
