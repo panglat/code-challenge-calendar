@@ -7,10 +7,10 @@ export const momentObjPropType = PropTypes.shape({
 });
 
 export const colorPropType = PropTypes.shape({
-  r: PropTypes.string,
-  g: PropTypes.string,
-  b: PropTypes.string,
-  a: PropTypes.string,
+  r: PropTypes.number,
+  g: PropTypes.number,
+  b: PropTypes.number,
+  a: PropTypes.number,
 });
 
 export const reminderPropType = PropTypes.shape({

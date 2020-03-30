@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { TwitterPicker } from 'react-color';
+import { colorPropType } from '../../../util/propTypesConstants';
 
 // @ own
 import './styles.scss';
@@ -49,12 +50,7 @@ const ColorPicker = ({ className, color, onChangeComplete, ...rest }) => {
 
 ColorPicker.propTypes = {
   className: PropTypes.string,
-  color: PropTypes.shape({
-    r: PropTypes.string,
-    g: PropTypes.string,
-    b: PropTypes.string,
-    a: PropTypes.string,
-  }).isRequired,
+  color: colorPropType.isRequired,
   onChangeComplete: PropTypes.func,
 };
 
