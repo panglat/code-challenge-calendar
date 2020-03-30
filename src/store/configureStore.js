@@ -1,7 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './rootReducer';
+import rootSaga from './rootSaga';
+
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore() {
   const composeEnhancers = composeWithDevTools({
@@ -9,7 +14,12 @@ export default function configureStore() {
   });
 
   // mount it on the Store
-  const store = createStore(rootReducer, composeEnhancers());
+  const store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(sagaMiddleware)),
+  );
 
+  // then run the saga
+  sagaMiddleware.run(rootSaga);
   return store;
 }

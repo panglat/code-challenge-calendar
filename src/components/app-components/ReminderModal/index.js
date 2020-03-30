@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
 import TimePicker from 'react-time-picker';
 import moment from 'moment';
 import { Formik } from 'formik';
@@ -10,11 +11,24 @@ import SimpleModal from '../../base-components/SimpleModal';
 import Button from '../../base-components/Button';
 import ColorPicker from '../../base-components/ColorPicker';
 import { reminderPropType } from '../../../util/propTypesConstants';
-
+import { requestWeather } from '../../../business/Weather/actions';
+import {
+  getWeather as getWeatherSelector,
+  getWeatherError as getWeatherErrorSelector,
+} from '../../../business/Weather/selectors';
 // @ own
 import './styles.scss';
+import CityWeatherView from '../CityWeatherView';
 
 const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
+  const dispatch = useDispatch();
+  const weather = useSelector((state) => getWeatherSelector(state));
+  const weatherError = useSelector((state) => getWeatherErrorSelector(state));
+
+  const getWeather = (city) => {
+    dispatch(requestWeather({ city }));
+  };
+
   return (
     <SimpleModal>
       <Formik
@@ -120,6 +134,21 @@ const ReminderModal = ({ className, reminder, onClose, onDelete, onSave }) => {
                 />
               </label>
             </div>
+            <Button
+              type="button"
+              onClick={() => {
+                getWeather(values.reminderCity);
+              }}
+            >
+              Weather
+            </Button>
+            {(weather || weatherError) && (
+              <CityWeatherView
+                city={values.reminderCity}
+                weather={weather}
+                weatherError={weatherError}
+              />
+            )}
             <div className="reminder-modal__group">
               <label className="reminder-modal__label" htmlFor="reminder-color">
                 Color:

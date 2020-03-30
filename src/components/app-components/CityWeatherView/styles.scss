@@ -1,0 +1,12 @@
+@import 'src/global-styles/globals.scss';
+
+.city-weather-view {
+  &__paragraph {
+    margin: 0;
+  }
+
+  &__image {
+    background: black;
+    border-radius: 50%;
+  }
+}
