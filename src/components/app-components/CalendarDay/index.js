@@ -10,6 +10,7 @@ import {
   reminderPropType,
   momentObjPropType,
 } from '../../../util/propTypesConstants';
+import SummarizedReminder from '../SummarizedReminder';
 
 const CalendarDay = ({ className, day, monthNumber, reminders, ...rest }) => {
   const today00hEpoch = day.unix();
@@ -27,10 +28,10 @@ const CalendarDay = ({ className, day, monthNumber, reminders, ...rest }) => {
         })}
       >
         {day.date()}
-        {dayReminders.map((r) => (
-          <div>{r.dateTime}</div>
-        ))}
       </div>
+      {dayReminders.map((r) => (
+        <SummarizedReminder reminder={r} />
+      ))}
     </div>
   );
 };

@@ -1,0 +1,14 @@
+@import 'src/global-styles/globals.scss';
+
+.summarized-reminder {
+  margin: 0px 5px 5px;
+  padding: 3px;
+
+  p {
+    margin: 0;
+  }
+
+  &__name {
+    font-weight: bold;
+  }
+}

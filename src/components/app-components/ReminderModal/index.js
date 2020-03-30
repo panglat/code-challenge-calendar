@@ -82,6 +82,7 @@ const ReminderModal = ({ className, day, onClose, onSubmit }) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.reminderName}
+                  maxLength="30"
                 />
               </label>
             </div>
