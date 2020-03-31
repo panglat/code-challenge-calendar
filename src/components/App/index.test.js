@@ -9,6 +9,5 @@ const sagaMiddleware = createSagaMiddleware();
 const mockStore = configureStore([sagaMiddleware]);
 
 test('renders without crashing', () => {
-  const { baseElement } = render(<App store={mockStore} />);
-  expect(baseElement).toBeDefined();
+  render(<App store={mockStore} />);
 });
