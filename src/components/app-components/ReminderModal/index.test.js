@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent, wait } from '@testing-library/react';
+import user from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 
@@ -47,5 +48,21 @@ test('Save button has to be disabled', async () => {
     const saveButton = getByText(/save/i);
     expect(saveButton).toHaveAttribute('type', 'submit');
     expect(saveButton).toBeDisabled();
+  });
+});
+
+test('Save button has to be enabled', async () => {
+  const { getByLabelText, getByText } = renderReminderModal();
+  const nameInput = getByLabelText(/name/i);
+  expect(nameInput).toHaveAttribute('type', 'text');
+  user.type(nameInput, 'Test reminder');
+  const cityInput = getByLabelText(/city/i, {
+    selector: 'input',
+  });
+  user.type(cityInput, 'Mendoza');
+  await wait(() => {
+    const saveButton = getByText(/save/i);
+    expect(saveButton).toHaveAttribute('type', 'submit');
+    expect(saveButton).toBeEnabled();
   });
 });
