@@ -2,6 +2,7 @@
   "name": "code-challenge-calendar",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://panglat.github.io/code-challenge-calendar/",
   "dependencies": {
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
@@ -29,6 +30,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
+    "gh-pages": "^3.1.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "node-sass": "^4.14.1",
