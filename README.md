@@ -2,6 +2,10 @@
 
 The goal of this exercise is to create a demo reminder application using React
 
+## Demo
+
+This a link to a demo of this app: [Calendar App](https://panglat.github.io/code-challenge-calendar/).
+
 ## How to install the app
 
 Once the repository is cloned, it is needed to install the dependencies in the local node_modules folder:
